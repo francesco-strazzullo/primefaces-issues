@@ -1,0 +1,70 @@
+<ui:fragment xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:cc="http://java.sun.com/jsf/composite">
+	<cc:interface componentType="ccDatatable.xhtml" />
+	<cc:implementation>
+		<p:dataTable id="salesTable" var="sale" value="#{cc.sales}">
+			<p:columnGroup type="header">
+				<p:row>
+					<p:column rowspan="3">
+						<f:facet name="header">  
+				            <p:commandButton 
+								value="Manufacturer"
+								id="btn"
+								onclick="alert('click');"
+								actionListener="#{cc.test}"/>   
+				        </f:facet>
+					</p:column>
+					<p:column colspan="4" headerText="Sales" />
+				</p:row>
+				<p:row>headerText="Manufacturer" /
+					<p:column colspan="2" headerText="Sales Count" />
+					<p:column colspan="2" headerText="Profit" />
+				</p:row>
+				<p:row>
+					<p:column headerText="Last Year" />
+					<p:column>
+						<f:facet name="header">
+					        <p:inputText>
+					        	<p:ajax
+					        		listener="#{cc.textListener}"
+					        		oncomplete="alert('COMPLETE');" />
+							</p:inputText>  
+						</f:facet>
+					</p:column>
+					<p:column headerText="Last Year" />
+					<p:column headerText="This Year" />
+				</p:row>
+			</p:columnGroup>
+			<p:column>  
+	            #{sale.manufacturer}  
+	        </p:column>
+			<p:column>  
+	            #{sale.lastYearProfit}%  
+	        </p:column>
+			<p:column>  
+	            #{sale.thisYearProfit}%  
+	        </p:column>
+			<p:column>  
+	            #{sale.lastYearSale}$  
+	        </p:column>
+			<p:column>  
+	            #{sale.thisYearSale}$  
+	        </p:column>
+			<p:columnGroup type="footer">
+				<p:row>
+					<p:column colspan="3" footerText="Totals:" style="text-align:right" />
+					<p:column footerText="#{tableBean.lastYearTotal}$" />
+					<p:column footerText="#{tableBean.thisYearTotal}$" />
+				</p:row>
+			</p:columnGroup>
+			<f:facet name="footer">  
+	            Use a bicycle instead of a car  
+	        </f:facet>
+		</p:dataTable>
+		
+	</cc:implementation>
+</ui:fragment>
